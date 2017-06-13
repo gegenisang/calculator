@@ -1,0 +1,98 @@
+body,div,h4,button,input,footer{
+  padding: 0px;
+  margin: 0px;
+}
+
+body{
+  background-color:#9d8f89;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+}
+.container{
+  
+}
+
+.calculator{
+    height: 410px;
+    width:300px;
+    border: 2px solid  #6e6665;
+    background-color: #f6f1e8;
+    margin:0 auto;
+    margin-top: 10%;
+    border-radius: 20px;
+    box-shadow: inset 0px 0px 20px rgba(0,0,0,0.5),0px 0px 30px rgba(0,0,0,0.3);
+}
+.title{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.text{
+  margin-right: 10px;
+  font-size: 34px;
+}
+.text-right{
+  width: 85%;
+  height: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 10px;
+  border: 1px solid #bab8a1;
+  box-shadow:inset 0px 0px 10px #c0bda7;
+  background-color: #c9c7b1;
+  border-radius: 6px;
+  outline: none;
+}
+
+.buttons{
+  width: 85%;
+  margin-right: auto;
+  margin-left: auto;
+ /* background: green;*/
+}
+button{
+  width:50px;
+  height: 40px;
+  margin-left: 6px; 
+  margin-right: 3px;
+  margin-top: 10px;
+  background-color: #3c3846;
+  border: 1px solid #554f60;
+  outline: none;
+  color: #fff;
+
+  text-align: center;
+  font-size: 18px;
+  border-radius: 5px;
+  display: inline-block;
+  box-shadow: 0px 3px 0px 0px #222121, inset -1px -3px 10px 1px #515151;
+}
+
+.equal{
+  width: 112px;
+}
+.resetAll,.reset{
+  background-color: #008000;
+  border: 1px solid #005500;
+  box-shadow: 0px 3px 0px 0px #005500, inset -1px -3px 10px 1px #26A65B;
+}
+
+button:active{
+  transform:translate(0px,3px);
+  box-shadow: none;
+}
+
+.footer{
+  padding-top: 16px;
+}
+a{
+  color: #005500;
+}
+
+.fa-heart{
+  color: #B11030;
+  display: inline-block;
+  vertical-align: middle;
+}
+.red{
+  color: red;
+   
+}
