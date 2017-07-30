@@ -3,6 +3,7 @@ $(function() {
     var prevNum = "";
     var isOpButton = false;
     var isEqButton = false;
+    
     var val;
     var result = 0;
     var count = 0;
@@ -11,6 +12,7 @@ $(function() {
     $(".text").text(curNum);
 
     $(".resetAll").click(function() {
+        $(".text").removeClass("red");
         curNum = "0";
         prevNum = "";
         isOpButton = false;
@@ -24,6 +26,7 @@ $(function() {
 
     $(".reset").click(function() {
         curNum = "0";
+        result = prevNum;
         $(".text").text(prevNum);
         if (prevNum === "") {
             prevNum = 0;
@@ -31,23 +34,54 @@ $(function() {
         curNum = prevNum;
     });
 
+
+    function getOpStatus(op) {
+        if(isOpButton){
+            if (result === 0) {
+                prevNum = curNum;
+                
+            } else {
+                getRet(result);
+                prevNum = result;
+               
+            }
+        }
+        
+        $(".text").text(prevNum);
+
+    }
+
+   
     function getNum(nowText, val) {
 
-        var hasDot = false;
+      
         // var newText = nowText;
+        var hasDot = false;
         var newText = nowText;
+
         if (val === "." && nowText.indexOf(".") !== -1) {
+            console.log(nowText.indexOf("."),"hasDot");
             hasDot = true;
+            console.log("aaaa");
         }
+
         if (nowText === "0" && val !== ".") {
             newText = val;
         } else {
             newText = nowText + val;
+            
         }
 
         if (hasDot) {
-            newText = "0" + nowText;
+            if(parseFloat(nowText)===parseInt(nowText)){
+                newText = "0" + nowText;
+            }else{
+                newText = nowText;
+            }
+            // newText = "0" + nowText;
+            // hasDot = false;
         }
+
         if (newText.length > 12) {
 
             return;
@@ -58,66 +92,76 @@ $(function() {
 
     }
 
-    function getNumIsNaN(now) {
+    function getTextIsNaN(now) {
 
         if (isNaN(now)) {
             $(".text").removeClass("red");
-            now = "";
+            now = "0";
             result = 0;
+            prevNum = result;
             isOpButton = false;
             count = 0;
-            return now;
-            exp = "";
-            console.log("777777777777");
+            console.log("777777777777",curNum);
             isEqButton = false;
             return now;
         } else {
-            
-          console.log("8888888888");
+            console.log("now",now);
+            if(isOpButton){
+                now = "0";
+                console.log("hahahhhaah");
+                isOpButton = false;
+                count++;
+                console.log("count",count);
+            }
+
+            if(isEqButton){
+                result = 0;
+                now = "0";
+                console.log("isEqButtonia");
+                isEqButton = false;
+                if(count>1){
+                   prevNum = 0; 
+                   count = 0;
+                }
+                 console.log("count111",count);
+            }
+            console.log("end");
             return now;
+            
 
         }
     }
+
+
 
    
     $(".num").click(function() {
         var curDown = $(this).val();
         var curText = $(".text").text();
-        var c = getNumIsNaN(curText);
+        var c = getTextIsNaN(curText);
         curNum = getNum(c, curDown);
 
         $(".text").text(curNum);
+        if(!isEqButton&&prevNum>0){
+            result = eval(prevNum+val+curNum);
+        }
+        console.log("start",isEqButton,isOpButton);
 
 
     });
 
 
-    function getOpStatus(op) {
-
-        isOpButton = true;
-        
-        if (count <= 1 && result === 0) {
-            prevNum = curNum;
-            console.log("ddddddd");
-        } else {
-            prevNum = result;
-            console.log("fffffffff");
-        }
-
-        curNum = "0";
-
-        console.log("prevNum", prevNum);
-        $(".text").text(prevNum);
-
-    }
-
+  
 
     $(".operation").click(function() {
         val = $(this).val();
+        isOpButton = true;
+        isEqButton = false;
         arr = [];
-        count++;
+        
         arr.push(val);
-        getStatus();
+        getOpStatus();
+        
 
     });
 
@@ -166,13 +210,26 @@ $(function() {
             }
         }
     }
+    function sum(){
+        result = eval(prevNum+val+curNum);
+        getRet(result);
+    }
 
     $(".equal").click(function() {
-      console.log("000000000000000");
-        result = eval(prevNum + val + curNum);
-        console.log("567687989");
+        if(isOpButton){
+            return;
+        }
+        // result = eval(prevNum + val + curNum);
+        sum();
+        console.log("result",prevNum + val + curNum);
+
         isEqButton = true;
-        getRet(result);
+        // if(!isOpButton){
+        //     sum();
+        // }else{
+        //     curNum = 0;
+        // }
+       
            
 
     });
